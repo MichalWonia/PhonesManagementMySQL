@@ -3,7 +3,7 @@
 ### in progress ...
 
 ```
-CREATE TABLE `phones`.`telephones` (
+CREATE TABLE `telephones` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `brand` VARCHAR(45) NULL,
   `model` VARCHAR(45) NULL,
