@@ -18,5 +18,4 @@ INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('4', 'Iphone'
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('5', 'Nokia', '3310', 'Blue');
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('6', 'Honor', 'P10', 'White');
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('7', 'Iphone', 'X', 'Black');
-
 ```
