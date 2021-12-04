@@ -5,6 +5,7 @@ public class PhoneManagementApp {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/phones", "root", "root");
+        deletePhoneById(connection);
         showAllPhones(connection);
         connection.close();
     }
@@ -40,5 +41,15 @@ public class PhoneManagementApp {
         String addNewPhoneQuery = "INSERT INTO telephones (`brand`, `model`, `color`) VALUES (" + "'" + brand + "'" + ", " + "'" + model + "'" + ", " + "'" + color + "'" + ")";
         statement.executeUpdate(addNewPhoneQuery);
         System.out.println("New phone added");
+    }
+
+    public static void deletePhoneById(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Which phone do you want to delete ? Please enter ID: ");
+        int id = sc.nextInt();
+        String deleteByIdQuery = "DELETE FROM telephones WHERE id = " + id;
+        statement.executeUpdate(deleteByIdQuery);
+        System.out.println("The phone has been deleted");
     }
 }
