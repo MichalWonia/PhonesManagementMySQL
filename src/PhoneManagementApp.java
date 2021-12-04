@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class PhoneManagementApp {
 
@@ -20,5 +21,24 @@ public class PhoneManagementApp {
                     + ", Model: " + resultSet.getString("model")
                     + ", Color: " + resultSet.getString("color"));
         }
+    }
+
+    public static void addNewPhone(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        Scanner sc = new Scanner(System.in);
+        String brand;
+        String model;
+        String color;
+        System.out.println("Fill in the missing fields: ");
+        System.out.println("Brand: ");
+        brand = sc.nextLine();
+        System.out.println("Model: ");
+        model = sc.nextLine();
+        System.out.println("Color: ");
+        color = sc.nextLine();
+
+        String addNewPhoneQuery = "INSERT INTO telephones (`brand`, `model`, `color`) VALUES (" + "'" + brand + "'" + ", " + "'" + model + "'" + ", " + "'" + color + "'" + ")";
+        statement.executeUpdate(addNewPhoneQuery);
+        System.out.println("New phone added");
     }
 }
