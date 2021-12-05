@@ -6,9 +6,36 @@ public class PhoneManagementApp {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/phones", "root", "root");
-        findPhonesByProperty(connection);
-        showAllPhones(connection);
+        userInterface(connection);
         connection.close();
+    }
+
+    public static void userInterface(Connection connection) throws SQLException {
+        int option;
+        char answer = 'y';
+        Scanner sc = new Scanner(System.in);
+
+        while (answer == 'y') {
+
+            System.out.println("Select an option you want to do: ");
+            System.out.println("1 - show all phones");
+            System.out.println("2 - add new phone");
+            System.out.println("3 - delete phone");
+            System.out.println("4 - update phone");
+            System.out.println("5 - find phone by property (id, brand, model, color)");
+
+            option = sc.nextInt();
+            switch (option) {
+                case 1 -> showAllPhones(connection);
+                case 2 -> addNewPhone(connection);
+                case 3 -> deletePhoneById(connection);
+                case 4 -> updatePhoneById(connection);
+                case 5 -> findPhonesByProperty(connection);
+                default -> System.out.println("Select one of the specified option");
+            }
+            System.out.println("Do you want to proceed ? [y/n]");
+            answer = confirmation(sc);
+        }
     }
 
     public static void showAllPhones(Connection connection) throws SQLException {
@@ -18,10 +45,10 @@ public class PhoneManagementApp {
         System.out.println("All phones in the database are: ");
         while (resultSet.next()) {
             System.out.println(
-                           "Id: " + resultSet.getString("id")
-                    + ", Brand: " + resultSet.getString("brand")
-                    + ", Model: " + resultSet.getString("model")
-                    + ", Color: " + resultSet.getString("color"));
+                    "Id: " + resultSet.getString("id")
+                            + ", Brand: " + resultSet.getString("brand")
+                            + ", Model: " + resultSet.getString("model")
+                            + ", Color: " + resultSet.getString("color"));
         }
     }
 
@@ -70,10 +97,10 @@ public class PhoneManagementApp {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM telephones WHERE id=" + id);
             if (!resultSet.next()) {
                 System.out.println("Phone with id = " + id + " does not exist.");
-            }else {
+            } else {
                 isPresent = true;
             }
-        }while (!isPresent);
+        } while (!isPresent);
 
         System.out.println("Do you want to update brand ? [y/n]");
 
@@ -108,10 +135,10 @@ public class PhoneManagementApp {
         char answer;
         do {
             answer = sc.next().charAt(0);
-            if(answer != 'n' && answer != 'y'){
+            if (answer != 'n' && answer != 'y') {
                 System.out.println("Please enter 'y' or 'n'");
             }
-        }while(answer != 'y' && answer != 'n');
+        } while (answer != 'y' && answer != 'n');
         return answer;
     }
 
