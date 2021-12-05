@@ -1,11 +1,12 @@
 import java.sql.*;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class PhoneManagementApp {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/phones", "root", "root");
-        updatePhoneById(connection);
+        findPhonesByProperty(connection);
         showAllPhones(connection);
         connection.close();
     }
@@ -112,5 +113,31 @@ public class PhoneManagementApp {
             }
         }while(answer != 'y' && answer != 'n');
         return answer;
+    }
+
+    public static void findPhonesByProperty(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        String property;
+        String propertyValue;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Which property are you looking for ?");
+        property = sc.nextLine().toLowerCase(Locale.ROOT);
+        System.out.println("Enter the " + property + " you are looking for");
+        propertyValue = sc.nextLine().toLowerCase(Locale.ROOT);
+
+        String findByPropertyQuery = "SELECT * FROM telephones WHERE " + "`" + property + "`" + "=" + "'" + propertyValue + "'";
+        ResultSet resultSet = statement.executeQuery(findByPropertyQuery);
+
+        if (resultSet.next()) {
+            resultSet.beforeFirst(); // moves the pointer of the current (ResultSet) object to the default position.
+            while (resultSet.next()) {
+                System.out.println("Id: " + resultSet.getString("id")
+                        + ", Brand: " + resultSet.getString("brand")
+                        + ", Model: " + resultSet.getString("model")
+                        + ", Color: " + resultSet.getString("color"));
+            }
+        } else {
+            System.out.println("No such record found");
+        }
     }
 }
