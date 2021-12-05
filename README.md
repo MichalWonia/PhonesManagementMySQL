@@ -1,8 +1,10 @@
 # PhonesManagementMySQL
 
-### in progress ...
+A simple application to manage phones in a database. I used JDBC connector to connect to MySQL database. The application has a user interface that allows to check records in the database, add new phones, delete, update and search by selected field. <br/>
 
-## create table
+You need to create a table in the database. Use the following commands:
+
+## Create table
 
 ```
 CREATE TABLE `telephones` (
@@ -12,7 +14,7 @@ CREATE TABLE `telephones` (
   `color` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
   ```
-  ## insert into table
+## Insert sample data into the table
   
 ```
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('1', 'Honor', '8X', 'Blue');
