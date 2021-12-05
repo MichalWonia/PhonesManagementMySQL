@@ -78,36 +78,28 @@ public class PhoneManagementApp {
 
         answer = confirmation(sc);
 
-        if (answer == 'y') {
-            System.out.println("Enter new brand: ");
-            Scanner sc1 = new Scanner(System.in);
-            property = sc1.nextLine();
-            String updateBrandQuery = "UPDATE telephones SET brand = " + "'" + property + "'" + " WHERE id = " + id;
-            statement.executeUpdate(updateBrandQuery);
-        }
+        updateSelectedProperty(statement, id, answer, "brand");
 
         System.out.println("Do you want to update model ? [y/n]");
 
         answer = confirmation(sc);
 
-        if (answer == 'y') {
-            System.out.println("Enter new model: ");
-            Scanner sc2 = new Scanner(System.in);
-            property = sc2.nextLine();
-            String updateModelQuery = "UPDATE telephones SET model = " + "'" + property + "'" + " WHERE id = " + id;
-            statement.executeUpdate(updateModelQuery);
-        }
+        updateSelectedProperty(statement, id, answer, "model");
 
         System.out.println("Do you want to update color ? [y/n]");
 
         answer = confirmation(sc);
 
+        updateSelectedProperty(statement, id, answer, "color");
+    }
+
+    private static void updateSelectedProperty(Statement statement, int id, char answer, String property) throws SQLException {
         if (answer == 'y') {
-            System.out.println("Enter new color: ");
-            Scanner sc3 = new Scanner(System.in);
-            property = sc3.nextLine();
-            String updateColorQuery = "UPDATE telephones SET color = " + "'" + property + "'" + " WHERE id = " + id;
-            statement.executeUpdate(updateColorQuery);
+            System.out.println("Enter new brand: ");
+            Scanner sc1 = new Scanner(System.in);
+            String value = sc1.nextLine();
+            String updateBrandQuery = "UPDATE telephones SET " + property + " = " + "'" + value + "'" + " WHERE id = " + id;
+            statement.executeUpdate(updateBrandQuery);
         }
     }
 
@@ -121,5 +113,4 @@ public class PhoneManagementApp {
         }while(answer != 'y' && answer != 'n');
         return answer;
     }
-
 }
