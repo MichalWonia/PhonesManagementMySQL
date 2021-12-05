@@ -5,7 +5,7 @@ public class PhoneManagementApp {
 
     public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/phones", "root", "root");
-        deletePhoneById(connection);
+        updatePhoneById(connection);
         showAllPhones(connection);
         connection.close();
     }
@@ -52,4 +52,74 @@ public class PhoneManagementApp {
         statement.executeUpdate(deleteByIdQuery);
         System.out.println("The phone has been deleted");
     }
+
+    public static void updatePhoneById(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+        Scanner sc = new Scanner(System.in);
+
+        int id;
+        String property;
+        char answer;
+        boolean isPresent = false;
+
+        do {
+            System.out.println("Which phone do you want to update ? Please enter Id:");
+            id = sc.nextInt();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM telephones WHERE id=" + id);
+            if (!resultSet.next()) {
+                System.out.println("Phone with id = " + id + " does not exist.");
+            }else {
+                isPresent = true;
+            }
+        }while (!isPresent);
+
+        System.out.println("Do you want to update brand ? [y/n]");
+
+        answer = confirmation(sc);
+
+        if (answer == 'y') {
+            System.out.println("Enter new brand: ");
+            Scanner sc1 = new Scanner(System.in);
+            property = sc1.nextLine();
+            String updateBrandQuery = "UPDATE telephones SET brand = " + "'" + property + "'" + " WHERE id = " + id;
+            statement.executeUpdate(updateBrandQuery);
+        }
+
+        System.out.println("Do you want to update model ? [y/n]");
+
+        answer = confirmation(sc);
+
+        if (answer == 'y') {
+            System.out.println("Enter new model: ");
+            Scanner sc2 = new Scanner(System.in);
+            property = sc2.nextLine();
+            String updateModelQuery = "UPDATE telephones SET model = " + "'" + property + "'" + " WHERE id = " + id;
+            statement.executeUpdate(updateModelQuery);
+        }
+
+        System.out.println("Do you want to update color ? [y/n]");
+
+        answer = confirmation(sc);
+
+        if (answer == 'y') {
+            System.out.println("Enter new color: ");
+            Scanner sc3 = new Scanner(System.in);
+            property = sc3.nextLine();
+            String updateColorQuery = "UPDATE telephones SET color = " + "'" + property + "'" + " WHERE id = " + id;
+            statement.executeUpdate(updateColorQuery);
+        }
+    }
+
+    private static char confirmation(Scanner sc) {
+        char answer;
+        do {
+            answer = sc.next().charAt(0);
+            if(answer != 'n' && answer != 'y'){
+                System.out.println("Please enter 'y' or 'n'");
+            }
+        }while(answer != 'y' && answer != 'n');
+        return answer;
+    }
+
 }
