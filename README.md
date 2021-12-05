@@ -2,6 +2,8 @@
 
 ### in progress ...
 
+## create table
+
 ```
 CREATE TABLE `telephones` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -10,6 +12,8 @@ CREATE TABLE `telephones` (
   `color` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
   ```
+  ## insert into table
+  
 ```
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('1', 'Honor', '8X', 'Blue');
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('2', 'Sony', 'Xperia', 'Silver');
