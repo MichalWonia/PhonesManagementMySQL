@@ -28,3 +28,7 @@ INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('7', 'Iphone'
 ## What next ?
 
 Start the application and follow the commands in the user interface.
+
+## Author
+Michal Wonia <br/>
+Poland
