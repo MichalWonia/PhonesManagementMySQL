@@ -25,3 +25,6 @@ INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('5', 'Nokia',
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('6', 'Honor', 'P10', 'White');
 INSERT INTO `telephones` (`id`, `brand`, `model`, `color`) VALUES ('7', 'Iphone', 'X', 'Black');
 ```
+## What next ?
+
+Start the application and follow the commands in the user interface.
